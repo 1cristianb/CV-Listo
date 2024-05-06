@@ -17,11 +17,10 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background-image: url('/img/fondo.jpg');
+  background-size: contain;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #f6f6f6;
 }

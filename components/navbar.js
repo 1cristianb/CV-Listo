@@ -27,7 +27,6 @@ const Navbar = () => {
                         <div className=" bg-[#EAEAEA] md:bg-[#f6f6f6] flex space-x-4">
                             <Link href="/" className='hover:text-[#6C9BD2]'>Inicio</Link>
                             <Link href="/crear" className='hover:text-[#6C9BD2]'>Crear CV</Link>
-                            <Link href="/dashboard" className='hover:text-[#6C9BD2]'>Contacto</Link>
                         </div>
                     </div>
                 </div>
@@ -36,7 +35,6 @@ const Navbar = () => {
                 <div className="bg-[#EAEAEA] flex flex-col py-4 px-2">
                     <Link href="/" className='m-2 hover:bg-[#f6f6f6] hover:hover:text-[#6C9BD2] hover:rounded-lg hover:px-2'>Inicio</Link>
                     <Link href="/crear" className='m-2 hover:bg-[#f6f6f6] hover:hover:text-[#6C9BD2] hover:rounded-lg hover:px-2'>Crear CV</Link>
-                    <Link href="/dashboard" className='m-2 hover:bg-[#f6f6f6] hover:hover:text-[#6C9BD2] hover:rounded-lg hover:px-2'>Contacto</Link>
                 </div>
             </div>
         </nav>

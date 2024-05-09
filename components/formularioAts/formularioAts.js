@@ -1,6 +1,7 @@
 "use client"
 import { useState } from 'react';
 import jsPDF from 'jspdf';
+import ExperienciaAts from './experienciaAts';
 
 const FormularioAts = () => {
     const [formData, setFormData] = useState({
@@ -9,18 +10,42 @@ const FormularioAts = () => {
         email: '',
         phone: '',
         city: '',
-        experience: '',
+        experiences: [],
         education: '',
         skills: '',
+    });
+
+    const [newExperience, setNewExperience] = useState({
+        position: '',
+        dateStart: '',
+        dateFinish: '',
+        company: '',
+        description: '',
     });
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const handleNewExperienceChange = (e) => {
+        setNewExperience({ ...newExperience, [e.target.name]: e.target.value });
+    };
+    const addExperience = (e) => {
+        e.preventDefault();
+        setFormData({ ...formData, experiences: [...formData.experiences, newExperience] });
+        setNewExperience({ position: '', dateStart: '', dateFinish: '', company: '', description: '' });
+    };
+
+    const removeExperience = (index) => {
+        const updatedExperiences = [...formData.experiences];
+        updatedExperiences.splice(index, 1);
+        setFormData({ ...formData, experiences: updatedExperiences });
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        generatePDF(formData);
+        const updatedFormData = { ...formData, title: formData.title.toUpperCase() };
+        generatePDF(updatedFormData);
     };
 
     const generatePDF = (formData) => {
@@ -31,46 +56,54 @@ const FormularioAts = () => {
         doc.setFont("georgia", "bold");
         doc.text(formData.name, 20, 20);
 
-        doc.setFont("georgia", "normal");
+        doc.setFont("georgia", "semi-bold");
         doc.setFontSize(18);
         doc.text(formData.title.toUpperCase(), 20, 30);
 
-        doc.line(20,36,190,36);
+        doc.line(20, 38, 190, 38);
 
         doc.setFontSize(12);
-        doc.text(formData.email, 20, 43);
-        doc.text(formData.phone, 90, 43);
-        doc.text(formData.city, 160, 43);
+        doc.text(formData.email, 20, 45);
+        doc.text(formData.phone, 90, 45);
+        doc.text(formData.city, 160, 45);
 
-        doc.line(20,47,190,47);
+        doc.line(20, 49, 190, 49);
 
         // Agregar la sección de experiencia
         doc.setFontSize(16);
-        doc.text('EXPERIENCIA', 20, 56);
+        doc.text('EXPERIENCIA', 20, 60);
         doc.setFontSize(12);
-        const lineas = doc.splitTextToSize(formData.experience, 180);
-        doc.text(lineas, 20, 64);
+        let yPos = 68;
+        formData.experiences.forEach((experience, index) => {
+            doc.setFont("georgia", "bold");
+            doc.text(`${experience.position} - ${experience.company}`, 20, yPos);
+            doc.setFont("georgia", "normal");
+            doc.text(`${experience.dateStart} - ${experience.dateFinish}`, 20, yPos + 8);
+            const lineas = doc.splitTextToSize(experience.description, 180);
+            doc.text(lineas, 20, yPos + 16);
+            yPos += 20 + lineas.length * 8;
+        });
 
         // Agregar la sección de educación
         doc.setFontSize(16);
-        doc.text('EDUCACIÓN', 20, 100);
+        doc.text('EDUCACIÓN', 20, yPos + 16);
         doc.setFontSize(12);
         const lineasEducacion = doc.splitTextToSize(formData.education, 180);
-        doc.text(lineasEducacion, 20, 108);
+        doc.text(lineasEducacion, 20, yPos + 24);
 
         // Agregar la sección de aptitudes
         doc.setFontSize(16);
-        doc.text('APTITUDES', 20, 136);
+        doc.text('APTITUDES', 20, yPos + 40 + lineasEducacion.length * 8);
         doc.setFontSize(12);
         const lineasAptitudes = doc.splitTextToSize(formData.skills, 180);
-        doc.text(lineasAptitudes, 20, 144);
+        doc.text(lineasAptitudes, 20, yPos + 48 + lineasEducacion.length * 8);
 
         // Guardar el PDF
         doc.save('curriculum.pdf');
     };
 
     return (
-        <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4">
+        <form onSubmit={handleSubmit} className="md:max-w-md min-w-32 mx-auto p-4">
             <div className="mb-4">
                 <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
                     Nombre
@@ -135,17 +168,7 @@ const FormularioAts = () => {
                 />
             </div>
 
-            <div className="mb-4">
-                <label htmlFor="experience" className="block text-gray-700 font-bold mb-2">
-                    Experiencia
-                </label>
-                <textarea
-                    name="experience"
-                    value={formData.experience}
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                ></textarea>
-            </div>
+            <ExperienciaAts formData={formData} setFormData={setFormData} />
 
             <div className="mb-4">
                 <label htmlFor="education" className="block text-gray-700 font-bold mb-2">

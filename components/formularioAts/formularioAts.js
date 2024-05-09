@@ -15,31 +15,8 @@ const FormularioAts = () => {
         skills: '',
     });
 
-    const [newExperience, setNewExperience] = useState({
-        position: '',
-        dateStart: '',
-        dateFinish: '',
-        company: '',
-        description: '',
-    });
-
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleNewExperienceChange = (e) => {
-        setNewExperience({ ...newExperience, [e.target.name]: e.target.value });
-    };
-    const addExperience = (e) => {
-        e.preventDefault();
-        setFormData({ ...formData, experiences: [...formData.experiences, newExperience] });
-        setNewExperience({ position: '', dateStart: '', dateFinish: '', company: '', description: '' });
-    };
-
-    const removeExperience = (index) => {
-        const updatedExperiences = [...formData.experiences];
-        updatedExperiences.splice(index, 1);
-        setFormData({ ...formData, experiences: updatedExperiences });
     };
 
     const handleSubmit = (e) => {

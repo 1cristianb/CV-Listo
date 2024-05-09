@@ -104,7 +104,7 @@ const ExperienciaAts = ({ formData, setFormData }) => {
             </button>
 
             <div className="my-4 ">
-                <div class="relative overflow-x-auto md:overflow-hidden">
+                <div class="relative overflow-x-auto md:overflow-visible">
                     <table class="w-full text-sm text-left rtl:text-right">
                         <thead class="text-xs  uppercase">
                             <tr className="bg-gray-200 rounded-md">

@@ -19,7 +19,6 @@ const FormularioAts = () => {
         skills: '',
     });
     
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const updatedFormData = { ...formData, title: formData.title.toUpperCase() };

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-const DatosAts = ({ formData, setFormData}) => {
+const DatosAts = ({ formData, setFormData }) => {
     const [profileDescriptionLength, setProfileDescriptionLength] = useState(0);
 
     const handleChange = (e) => {
@@ -50,30 +50,32 @@ const DatosAts = ({ formData, setFormData}) => {
             </div>
         </div>
 
-        <div className="mb-4">
-            <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
-                Email
-            </label>
-            <input
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
-        </div>
-        <div className="mb-4">
-            <label htmlFor="phone" className="block text-gray-700 font-bold mb-2">
-                Teléfono
-            </label>
-            <input
-                type="text"
-                name="phone"
-                pattern="[0-9]*"
-                value={formData.phone}
-                onChange={handleChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            />
+        <div className='flex justify-center gap-4'>
+            <div className="mb-4">
+                <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
+                    Email
+                </label>
+                <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+            </div>
+            <div className="mb-4">
+                <label htmlFor="phone" className="block text-gray-700 font-bold mb-2">
+                    Teléfono
+                </label>
+                <input
+                    type="text"
+                    name="phone"
+                    pattern="[0-9]*"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+            </div>
         </div>
         <div className="mb-4">
             <label htmlFor="city" className="block text-gray-700 font-bold mb-2">

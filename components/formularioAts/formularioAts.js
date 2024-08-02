@@ -16,9 +16,14 @@ const FormularioAts = () => {
         education: [],
         skills: '',
     });
+    const [profileDescriptionLength, setProfileDescriptionLength] = useState(0);
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        if (name === 'profileDescription') {
+            setProfileDescriptionLength(value.length);
+        }
+        setFormData({ ...formData, [name]: value });
     };
 
     const handleSubmit = (e) => {
@@ -139,8 +144,11 @@ const FormularioAts = () => {
                     name="profileDescription"
                     value={formData.profileDescription}
                     onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline text-gray-700' maxLength={400}
                 ></textarea>
+                <div className='text-right text-gray-700'>
+                    {profileDescriptionLength}/400
+                </div>
             </div>
 
             <div className="mb-4">

@@ -3,6 +3,8 @@ import { useState } from 'react';
 import jsPDF from 'jspdf';
 import ExperienciaAts from './experienciaAts';
 import EducacionAts from './educacionAts';
+import SkillsAts from './skillsAts';
+import DatosAts from './datosAts';
 
 const FormularioAts = () => {
     const [formData, setFormData] = useState({
@@ -16,15 +18,7 @@ const FormularioAts = () => {
         education: [],
         skills: '',
     });
-    const [profileDescriptionLength, setProfileDescriptionLength] = useState(0);
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        if (name === 'profileDescription') {
-            setProfileDescriptionLength(value.length);
-        }
-        setFormData({ ...formData, [name]: value });
-    };
+    
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -111,99 +105,13 @@ const FormularioAts = () => {
 
     return (
         <form onSubmit={handleSubmit} className="md:max-w-md min-w-32 mx-auto p-4">
-            <div className="mb-4">
-                <label htmlFor="name" className="block text-gray-700 font-bold mb-2">
-                    Nombre
-                </label>
-                <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-
-            <div className="mb-4">
-                <label htmlFor="title" className="block text-gray-700 font-bold mb-2">
-                    Título
-                </label>
-                <input
-                    type="text"
-                    name="title"
-                    value={formData.title}
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-            <div className="mb-4">
-                <label htmlFor="profileDescription" className="block text-gray-700 font-bold mb-2">
-                    Descripción del perfil
-                </label>
-                <textarea
-                    name="profileDescription"
-                    value={formData.profileDescription}
-                    onChange={handleChange}
-                    className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline text-gray-700' maxLength={400}
-                ></textarea>
-                <div className='text-right text-gray-700'>
-                    {profileDescriptionLength}/400
-                </div>
-            </div>
-
-            <div className="mb-4">
-                <label htmlFor="email" className="block text-gray-700 font-bold mb-2">
-                    Email
-                </label>
-                <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-            <div className="mb-4">
-                <label htmlFor="phone" className="block text-gray-700 font-bold mb-2">
-                    Teléfono
-                </label>
-                <input
-                    type="text"
-                    name="phone"
-                    pattern="[0-9]*"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
-            <div className="mb-4">
-                <label htmlFor="city" className="block text-gray-700 font-bold mb-2">
-                    Ciudad
-                </label>
-                <input
-                    type="text"
-                    name="city"
-                    value={formData.city}
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                />
-            </div>
+            <DatosAts formData={formData} setFormData={setFormData} />
 
             <ExperienciaAts formData={formData} setFormData={setFormData} />
 
             <EducacionAts formData={formData} setFormData={setFormData} />
 
-            <div className="mb-4">
-                <label htmlFor="skills" className="block text-gray-700 font-bold mb-2">
-                    Aptitudes
-                </label>
-                <textarea
-                    name="skills"
-                    value={formData.skills}
-                    onChange={handleChange}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                ></textarea>
-            </div>
+            <SkillsAts formData={formData} setFormData={setFormData}/>
 
             <button
                 type="submit"

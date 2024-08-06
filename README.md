@@ -1,36 +1,54 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# CV-Listo
 
-## Getting Started
+CV-Listo es una aplicación web que genera currículums vitae en formato PDF optimizados para pasar filtros ATS (Applicant Tracking System) utilizando la librería jsPDF. Esta herramienta permite a los usuarios crear un CV estructurado y profesional a partir de un conjunto de datos proporcionados.
 
-First, run the development server:
+## Características
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Generación de currículums vitae en formato PDF.
+- Diseño optimizado para sistemas ATS.
+- Secciones claras para perfil profesional, experiencia laboral, educación y habilidades.
+- Uso de fuentes estándar y formato limpio para maximizar la legibilidad por sistemas ATS.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Requisitos
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- Node.js
+- npm (Node Package Manager)
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Instalación
 
-## Learn More
+1. Clona el repositorio:
 
-To learn more about Next.js, take a look at the following resources:
+    ```bash
+    git clone https://github.com/tu-usuario/cv-listo.git
+    ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Navega al directorio del proyecto:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+    ```bash
+    cd cv-listo
+    ```
 
-## Deploy on Vercel
+3. Instala las dependencias:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    ```bash
+    npm install
+    ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Uso
+
+1. Abre el archivo `index.html` en tu navegador web.
+
+2. Rellena el formulario con tus datos personales, experiencia laboral, educación y habilidades.
+
+3. Haz clic en el botón "Generar PDF" para crear y descargar tu currículum vitae en formato PDF.
+
+## Tecnologías Utilizadas
+- React
+- Next.js
+- JavaScript
+- jsPDF
+- Tailwind CSS
+  
+## Autor
+Cristian Boschi
+

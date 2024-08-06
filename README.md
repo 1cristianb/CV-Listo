@@ -19,7 +19,7 @@ CV-Listo es una aplicación web que genera currículums vitae en formato PDF opt
 1. Clona el repositorio:
 
     ```bash
-    git clone https://github.com/tu-usuario/cv-listo.git
+    git clone https://github.com/1cristianb/CV-Listo.git
     ```
 
 2. Navega al directorio del proyecto:
@@ -36,7 +36,7 @@ CV-Listo es una aplicación web que genera currículums vitae en formato PDF opt
 
 ## Uso
 
-1. Abre el archivo `index.html` en tu navegador web.
+1. Selecciona el tipo de curriculum.
 
 2. Rellena el formulario con tus datos personales, experiencia laboral, educación y habilidades.
 

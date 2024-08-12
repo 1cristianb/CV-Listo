@@ -44,10 +44,11 @@ const ExperienciaAts = ({ formData, setFormData }) => {
     };
 
     return (
-        <div className="mb-4">
-            <label htmlFor="experience" className="block text-gray-700 font-bold mb-2">
-                Experiencia
-            </label>
+        <div className="space-y-6 flex flex-col items-center md:block">
+            <div>
+                <h2 className="mt-20 mb-4 text-2xl font-semibold leading-8 text-gray-900">Experiencia laboral</h2>
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                     <label htmlFor="position" className="block text-gray-700 font-bold mb-2">
@@ -74,7 +75,7 @@ const ExperienciaAts = ({ formData, setFormData }) => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="dates" className="block text-gray-700 font-bold mb-2">
+                    <label htmlFor="dateStart" className="block text-gray-700 font-bold mb-2">
                         Fecha Inicio
                     </label>
                     <input
@@ -86,7 +87,7 @@ const ExperienciaAts = ({ formData, setFormData }) => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="dates" className="block text-gray-700 font-bold mb-2">
+                    <label htmlFor="dateFinish" className="block text-gray-700 font-bold mb-2">
                         Fecha Final
                     </label>
                     <input
@@ -97,8 +98,7 @@ const ExperienciaAts = ({ formData, setFormData }) => {
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                     />
                 </div>
-
-                <div className="col-span-2">
+                <div className="col-span-1 sm:col-span-2">
                     <label htmlFor="description" className="block text-gray-700 font-bold mb-2">
                         Descripción
                     </label>
@@ -106,13 +106,15 @@ const ExperienciaAts = ({ formData, setFormData }) => {
                         name="description"
                         value={newExperience.description}
                         onChange={handleNewExperienceChange}
-                        className='shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline text-gray-700' maxLength={500}
+                        className="shadow appearance-none border rounded w-full h-40 py-2 px-3 leading-tight focus:outline-none focus:shadow-outline text-gray-700"
+                        maxLength={500}
                     ></textarea>
-                    <div className='text-right text-gray-700'>
+                    <div className="text-right text-gray-700">
                         {descriptionLength}/500
                     </div>
                 </div>
             </div>
+
             <button
                 type="button"
                 onClick={addExperience}
@@ -121,11 +123,11 @@ const ExperienciaAts = ({ formData, setFormData }) => {
                 Agregar Experiencia
             </button>
 
-            <div className="my-4">
-                <div className="relative overflow-x-auto md:overflow-visible">
-                    <table className="w-full text-sm text-left rtl:text-right">
-                        <thead className="text-xs uppercase">
-                            <tr className="bg-gray-200 rounded-md">
+            <div className="my-4 flex justify-center md:block">
+                <div className="relative overflow-x-auto w-1/2 md:w-full">
+                    <table className="w-full text-sm text-left">
+                        <thead className="text-xs uppercase bg-gray-200">
+                            <tr>
                                 <th className="px-4 py-2">Puesto</th>
                                 <th className="px-4 py-2">Fecha Inicio</th>
                                 <th className="px-4 py-2">Fecha Final</th>

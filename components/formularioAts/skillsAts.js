@@ -3,10 +3,10 @@ const SkillsAts = ({ formData, setFormData }) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
     return (<>
-        <div className="mb-4">
-            <label htmlFor="skills" className="block text-gray-700 font-bold mb-2">
-                Aptitudes
-            </label>
+        <div className="mb-4 flex flex-col items-center">
+        <div>
+                <h2 className="mt-20 mb-4 text-2xl font-semibold leading-8 text-gray-900">Habilidades</h2>
+            </div>
             <textarea
                 name="skills"
                 value={formData.skills}

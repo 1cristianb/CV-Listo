@@ -103,7 +103,7 @@ const FormularioAts = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="md:max-w-md min-w-32 mx-auto p-4">
+        <form onSubmit={handleSubmit} className="flex flex-col items-center justify-center md:block mx-auto p-4">
             <DatosAts formData={formData} setFormData={setFormData} />
 
             <ExperienciaAts formData={formData} setFormData={setFormData} />

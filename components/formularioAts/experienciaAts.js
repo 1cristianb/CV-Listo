@@ -8,10 +8,11 @@ const ExperienciaAts = ({ formData, setFormData }) => {
         company: '',
         description: '',
     });
-
+    
     const [showWarning, setShowWarning] = useState(false);
+    const [warningMessage, setWarningMessage] = useState('');
     const [descriptionLength, setDescriptionLength] = useState(0);
-
+    
     const handleNewExperienceChange = (e) => {
         const { name, value } = e.target;
         if (name === 'description') {
@@ -19,28 +20,59 @@ const ExperienciaAts = ({ formData, setFormData }) => {
         }
         setNewExperience({ ...newExperience, [name]: value });
     };
-
+    
+    const validarCampos = () => {
+        if (
+            newExperience.position.trim() === '' ||
+            newExperience.dateStart.trim() === '' ||
+            newExperience.dateFinish.trim() === '' ||
+            newExperience.company.trim() === '' ||
+            newExperience.description.trim() === ''
+        ) {
+            setWarningMessage('Por favor, completa todos los campos.');
+            return false;
+        }
+    
+        if (new Date(newExperience.dateStart) > new Date(newExperience.dateFinish)) {
+            setWarningMessage('La fecha de inicio no puede ser mayor que la fecha de finalización.');
+            return false;
+        }
+    
+        if (newExperience.description.length > 500) {
+            setWarningMessage('La descripción no puede tener más de 500 caracteres.');
+            return false;
+        }
+    
+        setWarningMessage('');
+        return true;
+    };
+    
     const addExperience = (e) => {
         e.preventDefault();
         if (formData.experiences.length < 2) {
-            setFormData({
-                ...formData,
-                experiences: [...formData.experiences, newExperience],
-            });
-            setNewExperience({ position: '', dateStart: '', dateFinish: '', company: '', description: '' });
-            setShowWarning(false);
+            if (validarCampos()) {
+                setFormData({
+                    ...formData,
+                    experiences: [...formData.experiences, newExperience],
+                });
+                setNewExperience({ position: '', dateStart: '', dateFinish: '', company: '', description: '' });
+                setShowWarning(false);
+            } else {
+                setShowWarning(true);
+            }
         } else {
+            setWarningMessage('Solo puedes agregar hasta dos experiencias.');
             setShowWarning(true);
         }
     };
-
+    
     const removeExperience = (index) => {
         const updatedExperiences = [...formData.experiences];
         updatedExperiences.splice(index, 1);
         setFormData({ ...formData, experiences: updatedExperiences });
         setShowWarning(false);
     };
-
+    
     return (
         <div className="space-y-6 flex flex-col items-center md:block">
             <div>
@@ -160,7 +192,7 @@ const ExperienciaAts = ({ formData, setFormData }) => {
 
             {showWarning && (
                 <div className="text-red-500 font-semibold mt-4 w-52 md:w-full">
-                    Solo puedes agregar hasta dos experiencias laborales.
+                    {warningMessage}
                 </div>
             )}
         </div>

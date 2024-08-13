@@ -9,6 +9,7 @@ const EducacionAts = ({ formData, setFormData }) => {
         university: '',
     });
     const [showWarning, setShowWarning] = useState(false);
+    const [warningMessage, setWarningMessage] = useState('');
 
     const handleNewEducationChange = (e) => {
         setNewEducation({ ...newEducation, [e.target.name]: e.target.value });
@@ -17,13 +18,18 @@ const EducacionAts = ({ formData, setFormData }) => {
     const addEducation = (e) => {
         e.preventDefault();
         if (formData.education.length < 2) {
-            setFormData({
-                ...formData,
-                education: [...formData.education, newEducation],
-            });
-            setNewEducation({ title: '', dateStart: '', dateFinish: '', area: '', university: '' });
-            setShowWarning(false);
+            if (validarCampos()) {
+                setFormData({
+                    ...formData,
+                    education: [...formData.education, newEducation],
+                });
+                setNewEducation({ title: '', dateStart: '', dateFinish: '', area: '', university: '' });
+                setShowWarning(false);
+            } else {
+                setShowWarning(true);
+            }
         } else {
+            setWarningMessage('Solo puedes agregar hasta dos educaciones.');
             setShowWarning(true);
         }
     };
@@ -33,6 +39,27 @@ const EducacionAts = ({ formData, setFormData }) => {
         updatedEducation.splice(index, 1);
         setFormData({ ...formData, education: updatedEducation });
         setShowWarning(false);
+    };
+
+    const validarCampos = () => {
+        if (
+            newEducation.title.trim() === '' ||
+            newEducation.dateStart.trim() === '' ||
+            newEducation.dateFinish.trim() === '' ||
+            newEducation.area.trim() === '' ||
+            newEducation.university.trim() === ''
+        ) {
+            setWarningMessage('Por favor, completa todos los campos.');
+            return false;
+        }
+    
+        if (new Date(newEducation.dateStart) > new Date(newEducation.dateFinish)) {
+            setWarningMessage('La fecha de inicio no puede ser mayor que la fecha de finalización.');
+            return false;
+        }
+    
+        setWarningMessage('');
+        return true;
     };
 
     return (
@@ -149,7 +176,7 @@ const EducacionAts = ({ formData, setFormData }) => {
 
             {showWarning && (
                 <div className="text-red-500 font-semibold mt-4 w-52 md:w-full">
-                    Solo puedes agregar hasta dos educaciones.
+                    {warningMessage}
                 </div>
             )}
         </div>

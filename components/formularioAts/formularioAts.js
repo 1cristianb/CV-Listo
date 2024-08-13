@@ -18,7 +18,7 @@ const FormularioAts = () => {
         education: [],
         skills: '',
     });
-    
+
     const handleSubmit = (e) => {
         e.preventDefault();
         const updatedFormData = { ...formData, title: formData.title.toUpperCase() };
@@ -110,14 +110,16 @@ const FormularioAts = () => {
 
             <EducacionAts formData={formData} setFormData={setFormData} />
 
-            <SkillsAts formData={formData} setFormData={setFormData}/>
+            <SkillsAts formData={formData} setFormData={setFormData} />
 
-            <button
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-                Crear
-            </button>
+            <div className='flex justify-center mt-20'>
+                <button
+                    type="submit"
+                    className="inline-block w-48 text-center text-lg font-medium text-white bg-[#5497b4] py-4 px-10 hover:bg-[#a47f48] hover:shadow-md md:w-48"
+                >
+                    Crear
+                </button>
+            </div>
         </form>
     );
 };

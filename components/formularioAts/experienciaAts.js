@@ -141,7 +141,7 @@ const ExperienciaAts = ({ formData, setFormData }) => {
                                     <td className="px-4 py-2">{experience.dateStart}</td>
                                     <td className="px-4 py-2">{experience.dateFinish}</td>
                                     <td className="px-4 py-2">{experience.company}</td>
-                                    <td className="px-4 py-2">{experience.description}</td>
+                                    <td className="px-4 py-2 w-28">{experience.description}</td>
                                     <td className="px-4 py-2">
                                         <button
                                             type="button"

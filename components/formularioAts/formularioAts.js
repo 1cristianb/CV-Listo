@@ -19,10 +19,44 @@ const FormularioAts = () => {
         skills: '',
     });
 
+    const [showWarning, setShowWarning] = useState(false);
+    const [warningMessage, setWarningMessage] = useState('');
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        const updatedFormData = { ...formData, title: formData.title.toUpperCase() };
-        generatePDF(updatedFormData);
+        if (validarDatosAts()) {
+            const updatedFormData = { ...formData, title: formData.title.toUpperCase() };
+            generatePDF(updatedFormData);
+        } else {
+            setShowWarning(true);
+        }
+    };
+
+    const validarDatosAts = () => {
+        if (
+            formData.name.trim() === '' ||
+            formData.title.trim() === '' ||
+            formData.profileDescription.trim() === '' ||
+            formData.email.trim() === '' ||
+            formData.phone.trim() === '' ||
+            formData.city.trim() === ''
+        ) {
+            setWarningMessage('Por favor, completa todos los campos.');
+            return false;
+        }
+
+        if (!/^\d+$/.test(formData.phone)) {
+            setWarningMessage('El teléfono solo puede contener números.');
+            return false;
+        }
+
+        if (formData.profileDescription.length > 400) {
+            setWarningMessage('La descripción del perfil no puede tener más de 400 caracteres.');
+            return false;
+        }
+
+        setWarningMessage(''); // Clear any previous warning message
+        return true;
     };
 
     const generatePDF = (formData) => {
@@ -111,6 +145,11 @@ const FormularioAts = () => {
             <EducacionAts formData={formData} setFormData={setFormData} />
 
             <SkillsAts formData={formData} setFormData={setFormData} />
+            {showWarning && (
+                <div className="text-red-500 font-semibold mt-4">
+                    {warningMessage}
+                </div>
+            )}
 
             <div className='flex justify-center mt-20'>
                 <button

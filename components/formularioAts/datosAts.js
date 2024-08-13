@@ -1,5 +1,6 @@
 import { useState } from 'react';
-const DatosAts = ({ formData, setFormData }) => {
+
+const DatosAts = ({ formData, setFormData, setShowWarning, setWarningMessage }) => {
     const [profileDescriptionLength, setProfileDescriptionLength] = useState(0);
 
     const handleChange = (e) => {
@@ -9,7 +10,35 @@ const DatosAts = ({ formData, setFormData }) => {
         }
         setFormData({ ...formData, [name]: value });
     };
-    return (<>
+
+    const validarCampos = () => {
+        if (
+            formData.name.trim() === '' ||
+            formData.title.trim() === '' ||
+            formData.profileDescription.trim() === '' ||
+            formData.email.trim() === '' ||
+            formData.phone.trim() === '' ||
+            formData.city.trim() === ''
+        ) {
+            setWarningMessage('Por favor, completa todos los campos.');
+            return false;
+        }
+
+        if (!/^\d+$/.test(formData.phone)) {
+            setWarningMessage('El teléfono solo puede contener números.');
+            return false;
+        }
+
+        if (formData.profileDescription.length > 400) {
+            setWarningMessage('La descripción del perfil no puede tener más de 400 caracteres.');
+            return false;
+        }
+
+        setWarningMessage('');
+        return true;
+    };
+
+    return (
         <div className="space-y-6">
             <div>
                 <h2 className="text-2xl font-semibold leading-8 text-gray-900">Datos personales</h2>
@@ -99,6 +128,6 @@ const DatosAts = ({ formData, setFormData }) => {
                 />
             </div>
         </div>
-    </>)
-}
+    );
+};
 export default DatosAts;

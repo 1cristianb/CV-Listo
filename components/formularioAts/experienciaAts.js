@@ -29,7 +29,7 @@ const ExperienciaAts = ({ formData, setFormData }) => {
             newExperience.company.trim() === '' ||
             newExperience.description.trim() === ''
         ) {
-            setWarningMessage('Por favor, completa todos los campos.');
+            setWarningMessage('Por favor, complete todos los campos.');
             return false;
         }
     

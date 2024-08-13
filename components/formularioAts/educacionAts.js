@@ -49,7 +49,7 @@ const EducacionAts = ({ formData, setFormData }) => {
             newEducation.area.trim() === '' ||
             newEducation.university.trim() === ''
         ) {
-            setWarningMessage('Por favor, completa todos los campos.');
+            setWarningMessage('Por favor, complete todos los campos.');
             return false;
         }
     

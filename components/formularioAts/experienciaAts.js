@@ -159,7 +159,7 @@ const ExperienciaAts = ({ formData, setFormData }) => {
             </div>
 
             {showWarning && (
-                <div className="text-red-500 font-semibold mt-4">
+                <div className="text-red-500 font-semibold mt-4 w-52 md:w-full">
                     Solo puedes agregar hasta dos experiencias laborales.
                 </div>
             )}

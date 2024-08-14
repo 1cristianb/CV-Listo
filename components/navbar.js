@@ -14,7 +14,7 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center h-16">
                     <div className="flex-shrink-0">
-                        <a href="#" className="text-lg">CV Listo</a>
+                        <a href="/" className="text-lg">CV Listo</a>
                     </div>
                     <div className="md:hidden">
                         <button onClick={toggleMobileMenu} className="text-black focus:outline-none">

@@ -55,86 +55,130 @@ const FormularioAts = () => {
             return false;
         }
 
-        setWarningMessage(''); // Clear any previous warning message
+        setWarningMessage('');
         return true;
     };
 
     const generatePDF = (formData) => {
         const doc = new jsPDF();
-        const lineStart = 20; // Inicio de la línea
-        const lineEnd = doc.internal.pageSize.getWidth() - 20; // Final de la línea
-        const lineLength = lineEnd - lineStart; // Longitud de la línea
-
-        // Agregar el título
-        let yPos = 20;
+        const lineStart = 20;
+        const lineEnd = doc.internal.pageSize.getWidth() - 20;
+        const maxLineWidth = 170;
+        const lineHeight = 10;
+        const sectionSpacing = 15;
+        const topMargin = 20;
+        const bottomMargin = 20;
+        const contentHeight = doc.internal.pageSize.getHeight() - topMargin - bottomMargin;
+        let yPos = topMargin;
+    
+        // Add Title
         doc.setFontSize(40);
         doc.setFont("georgia", "bold");
         doc.text(formData.name, lineStart, yPos);
-        yPos += 10;
-        doc.setFont("georgia", "semi-bold");
+        yPos += lineHeight;
+    
         doc.setFontSize(18);
+        doc.setFont("georgia", "semi-bold");
         doc.text(formData.title.toUpperCase(), lineStart, yPos);
-        yPos += 10;
-
-        // Agregar la descripción de perfil
+        yPos += lineHeight;
+    
+        // Sección perfil
         doc.setFontSize(10);
-        const lineasPerfil = doc.splitTextToSize(formData.profileDescription, 170);
-        doc.text(lineasPerfil, lineStart, yPos);
-        yPos += lineasPerfil.length * 5 + 2; // Ajustar la posición vertical después de la descripción de perfil
-
+        const profileLines = doc.splitTextToSize(formData.profileDescription, maxLineWidth);
+        doc.text(profileLines, lineStart, yPos);
+        yPos += profileLines.length * 5 + 2;
+    
         doc.line(lineStart, yPos, lineEnd, yPos);
-        yPos += 5;
-        doc.text(formData.email, lineStart, yPos);
-        doc.text(formData.phone, (lineStart + lineLength / 2) - 15, yPos); // Teléfono centrado
-        doc.text(formData.city, lineEnd, yPos, null, null, 'right'); // Ciudad alineada a la derecha
-        yPos += 3; // Ajustar la posición vertical después del correo electrónico, teléfono y ciudad
+        yPos += lineHeight/2;
+    
+        // Sección contacto
+        doc.text(formData.email, lineStart, yPos+1.25);
+        doc.text(formData.phone, lineStart + maxLineWidth / 2-15, yPos+1.25, null, null, 'center');
+        doc.text(formData.city, lineEnd, yPos+1.25, null, null, 'right');
+        yPos += lineHeight/2;
+    
         doc.line(lineStart, yPos, lineEnd, yPos);
-        yPos += 11; // Ajustar la posición vertical para la sección de experiencia
-
-        // Agregar la sección de experiencia
+        yPos += sectionSpacing;
+    
+        // Sección experiencia
         doc.setFontSize(16);
-        doc.text('EXPERIENCIA', lineStart, yPos);
-        yPos += 8;
-        doc.setFontSize(12);
-        formData.experiences.forEach((experience, index) => {
+        doc.text('EXPERIENCIA LABORAL', lineStart, yPos);
+        yPos += lineHeight;
+    
+        formData.experiences.forEach((experience) => {
             doc.setFontSize(12);
             doc.setFont("georgia", "bold");
             doc.text(`${experience.position} - ${experience.company}`, lineStart, yPos);
+            yPos += lineHeight / 2;
+    
             doc.setFont("georgia", "normal");
-            doc.text(`${experience.dateStart} / ${experience.dateFinish}`, lineStart, yPos + 5);
+            doc.text(`${experience.dateStart} / ${experience.dateFinish}`, lineStart, yPos);
+            yPos += lineHeight / 2;
+    
             doc.setFontSize(10);
-            const lineas = doc.splitTextToSize(experience.description, 170);
-            doc.text(lineas, lineStart, yPos + 10);
-            yPos += 8 + lineas.length * 8;
+            const experienceLines = doc.splitTextToSize(experience.description, maxLineWidth);
+            doc.text(experienceLines, lineStart, yPos);
+            yPos += experienceLines.length * 5 + sectionSpacing/2;
         });
-
-        // Agregar la sección de educación
+    
+        // Sección educación
         doc.setFontSize(16);
-        doc.text('EDUCACIÓN', lineStart, yPos + 7);
-        yPos += 16;
-        doc.setFontSize(12);
-        formData.education.forEach((education, index) => {
+        doc.text('EDUCACIÓN', lineStart, yPos);
+        yPos += lineHeight;
+    
+        formData.education.forEach((education) => {
+            doc.setFontSize(12);
             doc.setFont("georgia", "normal");
             doc.text(`${education.dateStart} / ${education.dateFinish}`, lineStart, yPos);
-            yPos += 5;
+            yPos += lineHeight / 2;
+    
             doc.setFont("georgia", "bold");
-            doc.text(`${education.title} - ${education.area} - ${education.university}`, lineStart, yPos);
-            yPos += 7;
+            doc.text(education.title, lineStart, yPos);
+            yPos += lineHeight / 2;
+    
+            doc.setFont("georgia", "normal");
+            doc.text(education.university, lineStart, yPos);
+            yPos += lineHeight + sectionSpacing/2;
         });
-
-        // Agregar la sección de aptitudes
-        doc.setFont("georgia", "normal");
+    
+        // Sección habilidades
         doc.setFontSize(16);
-        doc.text('APTITUDES', lineStart, yPos + 10);
-        yPos += 18;
+        doc.setFont("georgia", "normal");
+        doc.text('HABILIDADES', lineStart, yPos);
+        yPos += lineHeight;
+    
         doc.setFontSize(10);
-        const lineasAptitudes = doc.splitTextToSize(formData.skills, 170);
-        doc.text(lineasAptitudes, lineStart, yPos);
-        yPos += lineasAptitudes.length * 8;
-
+        const truncatedSkills = formData.skills.slice(0, 200).replace(/\n/g, ' ');
+        const skillsWords = truncatedSkills.split(' ');
+        let currentLine = '';
+        let spaceLeft = maxLineWidth;
+        skillsWords.forEach((word) => {
+            const wordWidth = doc.getTextWidth(word + ' ');
+            if (wordWidth > spaceLeft) {
+                doc.text(currentLine.trim(), lineStart, yPos);
+                yPos += lineHeight;
+                currentLine = word + ' ';
+                spaceLeft = maxLineWidth - wordWidth;
+            } else {
+                currentLine += word + ' ';
+                spaceLeft -= wordWidth;
+            }
+        });
+        if (currentLine) {
+            doc.text(currentLine.trim(), lineStart, yPos);
+        }
+    
+        // Margen final
+        yPos += bottomMargin;
+    
         // Guardar el PDF
         doc.save('curriculum.pdf');
     };
+    
+
+
+
+
 
     return (
         <form onSubmit={handleSubmit} className="flex flex-col items-center justify-center md:block mx-auto p-4">

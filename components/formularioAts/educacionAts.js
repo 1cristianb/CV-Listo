@@ -94,7 +94,7 @@ const EducacionAts = ({ formData, setFormData }) => {
                 </div>
                 <div className="col-span-1 sm:col-span-2">
                     <label htmlFor="university" className="block text-gray-700 font-bold mb-2">
-                        Universidad
+                        Instituto
                     </label>
                     <input
                         type="text"
@@ -144,7 +144,7 @@ const EducacionAts = ({ formData, setFormData }) => {
                             <tr className="bg-gray-200 rounded-md">
                                 <th className="px-4 py-2">Título</th>
                                 <th className="px-4 py-2">Área de estudio</th>
-                                <th className="px-4 py-2">Universidad</th>
+                                <th className="px-4 py-2">Instituto</th>
                                 <th className="px-4 py-2">Fecha Inicio</th>
                                 <th className="px-4 py-2">Fecha Final</th>
                                 <th className="px-4 py-2">Acciones</th>

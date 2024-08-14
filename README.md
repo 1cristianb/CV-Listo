@@ -40,7 +40,7 @@ CV-Listo es una aplicación web que genera currículums vitae en formato PDF opt
 
 2. Rellena el formulario con tus datos personales, experiencia laboral, educación y habilidades.
 
-3. Haz clic en el botón "Generar PDF" para crear y descargar tu currículum vitae en formato PDF.
+3. Haz clic en el botón "Crear" para crear y descargar tu currículum vitae en formato PDF.
 
 ## Tecnologías Utilizadas
 - React
